@@ -1,14 +1,14 @@
 class CommentsController < ApplicationController
 
-  # def new
-  #   @comment = Comment.new
-  # end
+  def new
+    @comment = Comment.new
+  end
   #
-  # def show
-  #   @comment = Comment.new(comment_params)
-  #   @comments = Comment.all.where(question_id: @question.id)
-  # end
-#
+  def show
+    @comment = Comment.new(comment_params)
+    @comments = Comment.all.where(question_id: @question.id)
+  end
+
   def create
     @comments = Comment.all.where(question_id: @question.id)
     @comment = Comment.new(comment_params)
@@ -18,15 +18,15 @@ class CommentsController < ApplicationController
   end
 end
 #
-#   def index
-#     @comments = Comment.all.where(question_id: @question.id)
-#     @comments.order('timestamps asc')
-#     def destroy
-#       @comments = Comment.destroy(params[:id])
-#       flash[:notice] = 'Comment deleted.'
-#       redirect_to '/questions'
-#     end
-#   end
+  def index
+    @comments = Comment.all.where(question_id: @question.id)
+    @comments.order('timestamps asc')
+    def destroy
+      @comments = Comment.destroy(params[:id])
+      flash[:notice] = 'Comment deleted.'
+      redirect_to '/questions'
+    end
+  end
 #
 #   def edit
 #     @question = Question.find(params[:id]).edit
