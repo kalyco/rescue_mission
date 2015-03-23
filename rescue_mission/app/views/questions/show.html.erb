@@ -1,0 +1,16 @@
+<b><p>Question</p></b>
+<h3><%= @question.title %></h3>
+<div>
+</div>
+<%= @question.description %>
+<%= form_for @comment do |f| %>
+  <%= f.label :details %>
+  <%= f.text_field :body %>
+  <%= f.hidden_field :question_id, :value => @question.id %>
+  <%= f.submit "Add Comment" %>
+<% end %>
+
+<h2> Comments: </h2>
+  <% @comments.each do |f| %>
+  <%= f.body %>
+  <% end %>

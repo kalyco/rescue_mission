@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="large-12">
+    <h1>Questions</h1>
+
+      <ol>
+      <% @questions.each do |question| %>
+        <li><a href="/questions/<%= question.id %>"><%= question.title %></a></li>
+        <%= link_to 'Delete',
+              '/questions/' + question.to_param,
+              method: :delete %>
+          <% if user_signed_in? %>
+            <% if question.user_id == current_user.id %>
+              <%= current_user.email %>
+              <% end %>
+            <% end %>
+          <% end %>
+      </ol>
+    <%= link_to("New Question", new_question_path) %>
