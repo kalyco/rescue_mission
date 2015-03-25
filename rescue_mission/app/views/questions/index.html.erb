@@ -4,10 +4,8 @@
 
       <ol>
       <% @questions.each do |question| %>
-        <li><a href="/questions/<%= question.id %>"><%= question.title %></a></li>
-        <%= link_to 'Delete',
-              '/questions/' + question.to_param,
-              method: :delete %>
+        <li><%= link_to("#{question.title}", "/questions/#{question.id}/comments",
+        :controller => :comments, :action => :create) %></li>
           <% if user_signed_in? %>
             <% if question.user_id == current_user.id %>
               <%= current_user.email %>
@@ -16,3 +14,5 @@
           <% end %>
       </ol>
     <%= link_to("New Question", new_question_path) %>
+  </div>
+</div>

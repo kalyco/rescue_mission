@@ -1,0 +1,23 @@
+<h1><%= @question.title %></h1>
+<div>
+</div>
+<%= @question.description %>
+<br><br>
+<b><%= link_to("edit", edit_question_path(@question)) %></b>
+<br><br><br>
+<b><%= link_to 'delete','/questions/' + @question.to_param,
+      method: :delete %></b>
+<br><br>
+<h2> Comments: </h2>
+  <% @comments.each do |f| %>
+  <%= f.body %>  <%= f.created_at %>
+  <br>
+  <% end %>
+<br><br>
+
+<%= form_for [@question, @comment] do |f| %>
+  <%= f.label "Add your own answer:" %>
+  <%= f.text_field :body %>
+  <%= f.submit "Answer" %>
+  <%= f.hidden_field :question_id, :value => @question.id %>
+<% end %>

@@ -4,13 +4,9 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.find(params[:id])
-    @comments = Comment.all.where(question_id: @question.id)
-    @comment = Comment.new(comment_params)
-    if @comment.save
-      flash[:notice] = 'Comment added.'
-      redirect_to '/questions'
-    end
+    @question = Question.find_by(params[:id])
+    @comment = Comment.new
+    @comments = Comment.all
   end
 
   def create
@@ -26,23 +22,57 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.all
     @questions.order('timestamps des')
-    def destroy
-      @questions = Question.destroy(params[:id])
-      flash[:notice] = 'Question deleted.'
-      redirect_to '/questions'
+  end
+
+  def destroy
+    unless Question.find(params[:id]) ==  nil
+      @question = Question.find(params[:id])
     end
+      if current_user != nil
+        if current_user.id == @question.user_id
+        @questions = Question.destroy(params[:id])
+        @comments = Comment.where(question_id: params[:id])
+        if @comments.present?
+        destroy
+        end
+        flash[:notice] = 'Question deleted.'
+        redirect_to '/questions'
+        else
+          flash[:notice] = "Can not delete other user questions"
+          redirect_to '/questions'
+        end
+      else
+        flash[:notice] = "Must be logged in to delete questions"
+        redirect_to '/questions'
+      end
   end
 
   def edit
-    @question = Question.find(params[:id]).edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    if current_user != nil
+      if current_user.id == @question.user_id
+        @question.update_attributes(title: params[:title],
+        description: params[:description])
+        flash[:notice] = 'Question has been updated'
+        redirect_to '/questions'
+      else
+        flash[:notice] = "Can not edit other user questions"
+        redirect_to '/questions'
+      end
+    else
+      flash[:notice] = "Must be logged in to edit questions"
+      redirect_to '/questions'
+      render :edit
+    end
   end
 
   protected
+
   def question_params
     params.require(:question).permit(:title, :description, :user_id)
-  end
-
-  def comment_params
-    params.permit(:comment).permit(:body, :question_id)
   end
 end

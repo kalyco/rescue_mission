@@ -43,11 +43,12 @@ group :development, :test do
   gem 'pry'
   gem 'pry-rails'
   gem 'faker'
+
+  gem 'rspec-rails', '~> 3.0'
 end
 
 
 gem 'kaminari'
-gem 'rspec-rails', group: [:development, :test]
 gem 'capybara', group: [:development, :test]
 gem 'launchy', group: [:development, :test]
 gem 'factory_girl', group: [:development, :test]

@@ -1,39 +1,29 @@
 class CommentsController < ApplicationController
 
-  def new
+  def index
+    @question = Question.find_by(id: params[:question_id] )
+    @comments = Comment.all.where(question_id: params[:question_id])
+    @comments.order('timestamps des')
     @comment = Comment.new
-  end
-  #
-  def show
-    @comment = Comment.new(comment_params)
-    @comments = Comment.all.where(question_id: @question.id)
   end
 
   def create
-    @comments = Comment.all.where(question_id: @question.id)
+    @question = Question.find_by(id: params[:question_id] )
     @comment = Comment.new(comment_params)
     if @comment.save
       flash[:notice] = 'Comment added.'
+      redirect_to "/questions/#{@question.id}/comments"
     end
   end
-end
-#
-  def index
-    @comments = Comment.all.where(question_id: @question.id)
-    @comments.order('timestamps asc')
-    def destroy
-      @comments = Comment.destroy(params[:id])
-      flash[:notice] = 'Comment deleted.'
-      redirect_to '/questions'
-    end
+
+  def show
+    @comment = Comment.find(params[:id])
+    @question = @comment.question
   end
-#
-#   def edit
-#     @question = Question.find(params[:id]).edit
-# #   end
-# #
+
   protected
 
   def comment_params
-    params.permit(:comment).permit(:body, :question_id)
+    params.require(:comment).permit(:body, :question_id)
   end
+end

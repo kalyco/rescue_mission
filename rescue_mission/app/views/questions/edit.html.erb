@@ -1,0 +1,12 @@
+<h3>Edit question</h3>
+
+<%= form_for @question do |f| %>
+  <%= f.label :title %><br />
+  <%= f.text_field :title %>
+  <br /><br />
+  <%= f.label :description %><br />
+  <%= f.text_area :description %>
+  <%= f.submit "Update" %>
+<% end %>
+<b><%= link_to 'delete','/questions/' + @question.to_param,
+      method: :delete %></b>

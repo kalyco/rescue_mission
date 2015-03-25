@@ -9,9 +9,9 @@ if Rails.env.development?
   User.find_or_create_by(email: "example2@example.com", encrypted_password: "password")
   User.find_or_create_by(email: "example3@example.com", encrypted_password: "password")
 
-  Comment.find_or_create_by(body: "this is a comment", question_id: 1)
-  Comment.find_or_create_by(body: "this is a comment", question_id: 2)
-  Comment.find_or_create_by(body: "this is a comment", question_id: 3)
-  Comment.find_or_create_by(body: "this is a comment", question_id: 4)
-  Comment.find_or_create_by(body: "this is a comment", question_id: 5)
+  Comment.find_or_create_by(body: "this is an answer", question_id: 1)
+  Comment.find_or_create_by(body: "this is also an answer", question_id: 1)
+  Comment.find_or_create_by(body: "this is an answer tooo", question_id: 3)
+  Comment.find_or_create_by(body: "hi", question_id: 4)
+  Comment.find_or_create_by(body: "sup", question_id: 5)
 end
