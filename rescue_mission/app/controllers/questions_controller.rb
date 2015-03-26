@@ -55,13 +55,13 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     if current_user != nil
       if current_user.id == @question.user_id
-        @question.update_attributes(title: params[:title],
-        description: params[:description])
+        if @question.update_attributes(question_params)
         flash[:notice] = 'Question has been updated'
         redirect_to '/questions'
       else
         flash[:notice] = "Can not edit other user questions"
         redirect_to '/questions'
+        end
       end
     else
       flash[:notice] = "Must be logged in to edit questions"
