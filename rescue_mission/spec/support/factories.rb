@@ -14,7 +14,7 @@ FactoryGirl.define do
   end
 
   FactoryGirl.define do
-    factory :comment do
+    factory :answer do
       body "Build a tee pee
       Come inside
       Close it tight so we can hide
@@ -23,7 +23,7 @@ FactoryGirl.define do
       Here's my arrow
       And here's my bow!"
       question_id 1
-    factory :comment1 do
+    factory :answer1 do
       body "Bunny ears,
        Bunny ears, playing by a tree.
        Criss-crossed the tree,
@@ -32,7 +32,7 @@ FactoryGirl.define do
        jumped into the hole,
        Popped out the other side beautiful and bold."
       question_id 1
-    factory :comment2 do
+    factory :asnwer2 do
       body "read the google"
       question_id 2
         end

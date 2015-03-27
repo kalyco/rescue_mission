@@ -6,8 +6,10 @@ class CreateQuestions < ActiveRecord::Migration
       t.datetime :created_at, null: false
       t.datetime :updated_at, null: false
       t.integer :user_id, null: false
+      t.boolean :favorite
 
       t.timestamps null: false
     end
+    add_index(:questions, [:favorite, :id ], unique: true)
   end
 end

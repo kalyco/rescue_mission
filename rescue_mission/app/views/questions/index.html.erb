@@ -1,16 +1,17 @@
+
 <div class="row">
   <div class="large-12">
     <h1>Questions</h1>
 
       <ol>
       <% @questions.each do |question| %>
-        <li><%= link_to("#{question.title}", "/questions/#{question.id}/comments",
-        :controller => :comments, :action => :create) %></li>
-          <% if user_signed_in? %>
-            <% if question.user_id == current_user.id %>
-              <%= current_user.email %>
-              <% end %>
+        <li><%= link_to("#{question.title}", "/questions/#{question.id}",
+        :controller => :answers, :action => :create) %></li>
+            <% user = User.find_by(id: question.user_id) %>
+            <% if user.present? %>
+              <%= user.email %>
             <% end %>
+              <%= question.created_at %>
           <% end %>
       </ol>
     <%= link_to("New Question", new_question_path) %>

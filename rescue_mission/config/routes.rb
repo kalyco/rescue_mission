@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :questions do
-    resources :comments, only: [:index, :create, :show]
-  end
-  resources :comments
   devise_for :users
+  resources :questions, only: [
+    :index, :show, :new, :edit, :create, :update, :destroy
+  ] do
+    resources :answers, only: [
+      :show, :create, :edit, :update, :destroy ]
+  end
+  resources :answers
   get '/', to: redirect('/questions')
 end

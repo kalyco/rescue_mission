@@ -1,6 +1,6 @@
-class CreateComments < ActiveRecord::Migration
+class CreateAnswers < ActiveRecord::Migration
   def change
-    create_table :comments do |t|
+    create_table :answers do |t|
       t.text :body, null: false
       t.datetime :created_at, null: false
       t.datetime :updated_at, null: false
